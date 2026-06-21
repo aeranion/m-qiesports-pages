@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>企鹅体育 · 运动生活新选择</title>
+  <style>
+    /* 全局重置 & 字体 */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f5fbfa;
+      color: #1e2b2a;
+      line-height: 1.6;
+      padding: 0 1.25rem 3.5rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /* 蓝绿色主题点缀 */
+    :root {
+      --teal-soft: #d6efe9;
+      --teal-mid: #3fa89b;
+      --teal-deep: #1d7068;
+      --teal-dark: #0d4f48;
+      --accent-glow: #b8e0d7;
+      --card-bg: #ffffff;
+      --shadow-sm: 0 2px 8px rgba(30, 43, 42, 0.06), 0 1px 2px rgba(0,0,0,0.02);
+      --shadow-hover: 0 8px 20px rgba(30, 43, 42, 0.08), 0 2px 6px rgba(0,0,0,0.03);
+      --radius-card: 1.25rem;
+      --radius-element: 0.75rem;
+    }
+
+    /* 头部 Hero 区 —— 简洁带标签 */
+    .hero {
+      padding: 2.8rem 0 2.2rem;
+      text-align: center;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--teal-soft);
+      color: var(--teal-dark);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: 2.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--teal-dark);
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(145deg, var(--teal-mid), var(--teal-deep));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      max-width: 660px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      color: #39524e;
+    }
+
+    /* 摘要卡片 — 网格 */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin: 2.5rem 0 3.2rem;
+    }
+
+    @media (min-width: 520px) {
+      .summary-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 860px) {
+      .summary-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-card);
+      padding: 1.6rem 1.4rem 1.8rem;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.25s ease, transform 0.2s ease;
+      border: 1px solid rgba(63, 168, 155, 0.08);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.4rem;
+      display: block;
+      line-height: 1;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--teal-dark);
+      margin-bottom: 0.35rem;
+      border-left: 4px solid var(--teal-mid);
+      padding-left: 0.6rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #2e4441;
+      margin-top: 0.3rem;
+      flex: 1;
+    }
+
+    .card .badge {
+      background: var(--teal-soft);
+      color: var(--teal-deep);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 30px;
+      align-self: flex-start;
+      margin-top: 0.8rem;
+    }
+
+    /* 亮点/特点区域 —— 依旧网格，带小标 */
+    .highlights {
+      margin: 2.8rem 0 2.4rem;
+    }
+
+    .highlights h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--teal-deep);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .highlights h2::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(to right, var(--teal-soft), transparent);
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    @media (min-width: 640px) {
+      .feature-list {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .feature-item {
+      background: #ffffffdd;
+      backdrop-filter: blur(2px);
+      background: var(--card-bg);
+      border-radius: var(--radius-element);
+      padding: 1.2rem 1.2rem 1.2rem 1.6rem;
+      box-shadow: var(--shadow-sm);
+      border-left: 5px solid var(--teal-mid);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .feature-item .num {
+      background: var(--teal-soft);
+      color: var(--teal-dark);
+      font-weight: 700;
+      font-size: 0.9rem;
+      min-width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-item .content {
+      flex: 1;
+    }
+
+    .feature-item .content strong {
+      color: var(--teal-dark);
+    }
+
+    .feature-item .content p {
+      color: #2f4945;
+      font-size: 0.92rem;
+      margin-top: 0.2rem;
+    }
+
+    /* 使用建议 / 场景 */
+    .scenario-box {
+      background: linear-gradient(135deg, #e8f7f3 0%, #d5efe8 100%);
+      border-radius: var(--radius-card);
+      padding: 1.8rem 1.6rem 2rem;
+      margin: 1.8rem 0 2.5rem;
+      border: 1px solid #b6ddd4;
+    }
+
+    .scenario-box h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--teal-dark);
+      margin-bottom: 0.8rem;
+    }
+
+    .scenario-box .suggestion-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .suggestion-chip {
+      background: white;
+      padding: 0.5rem 1.1rem 0.5rem 1.1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      color: #1d5f57;
+      border: 1px solid #b0d9d0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .suggestion-chip span {
+      font-weight: 500;
+    }
+
+    /* FAQ 摘要 折叠感 */
+    .faq-mini {
+      margin: 2.2rem 0 2.8rem;
+    }
+
+    .faq-mini h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--teal-deep);
+      margin-bottom: 0.8rem;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border-radius: var(--radius-element);
+      padding: 1rem 1.2rem;
+      margin-bottom: 0.65rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #d7eae4;
+    }
+
+    .faq-item .q {
+      font-weight: 600;
+      color: var(--teal-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .faq-item .q::before {
+      content: "Q";
+      background: var(--teal-soft);
+      color: var(--teal-deep);
+      font-size: 0.75rem;
+      font-weight: 700;
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .faq-item .a {
+      margin-left: 2.2rem;
+      font-size: 0.92rem;
+      color: #2d4b46;
+      margin-top: 0.25rem;
+      border-left: 2px solid #b8ddd4;
+      padding-left: 0.8rem;
+    }
+
+    /* 嵌入链接的自然句子区域 */
+    .link-sentence {
+      background: white;
+      border-radius: var(--radius-card);
+      padding: 1.2rem 1.6rem;
+      box-shadow: var(--shadow-sm);
+      font-size: 1rem;
+      border: 1px solid #d2eae3;
+      margin-bottom: 2rem;
+    }
+
+    .link-sentence a {
+      color: var(--teal-deep);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 2px solid var(--teal-soft);
+      transition: border-color 0.15s;
+    }
+
+    .link-sentence a:hover {
+      border-bottom-color: var(--teal-mid);
+    }
+
+    /* 可信提示条 */
+    .trust-note {
+      background: #ecf6f3;
+      border-radius: 50px;
+      padding: 0.6rem 1.2rem;
+      display: inline-block;
+      font-size: 0.85rem;
+      color: #1a5e55;
+      border: 1px solid #b5d5cc;
+      margin-top: 0.5rem;
+    }
+
+    /* 尾部 */
+    .footer-note {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      text-align: center;
+      border-top: 1px solid #c6e0d8;
+      font-size: 0.85rem;
+      color: #4d6b65;
+    }
+
+    .footer-note a {
+      color: var(--teal-deep);
+      text-decoration: none;
+    }
+
+    /* 响应式微调 */
+    @media (max-width: 400px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .card {
+        padding: 1.2rem;
+      }
+      .scenario-box {
+        padding: 1.4rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <header class="hero">
+    <span class="hero-tag">⚡ 运动 · 资讯 · 社区</span>
+    <h1>发现 <span>企鹅体育</span> 的日常</h1>
+    <p>它不是一个复杂的平台，而是一个帮你在碎片时间里了解体育、参与话题、找到同好的地方。</p>
+  </header>
+
+  <!-- 摘要网格：产品说明式 -->
+  <section class="summary-grid">
+    <div class="card">
+      <span class="card-icon">📋</span>
+      <h3>它是什么</h3>
+      <p>提供赛事信息、运动知识、社区讨论的轻量体育空间。适合想快速浏览又不想被信息淹没的人。</p>
+      <span class="badge">轻 · 快 · 有温度</span>
+    </div>
+    <div class="card">
+      <span class="card-icon">📌</span>
+      <h3>核心场景</h3>
+      <p>赛前看一眼阵容，赛后翻翻讨论；或者只是随便刷刷运动趣闻。没有过度推送，内容由用户共同编织。</p>
+      <span class="badge">场景多元</span>
+    </div>
+    <div class="card">
+      <span class="card-icon">🧭</span>
+      <h3>适合谁</h3>
+      <p>偶尔看球的普通爱好者、想找组织的新手、喜欢安静浏览的老用户。门槛很低，不用注册也能逛。</p>
+      <span class="badge">0 门槛</span>
+    </div>
+  </section>
+
+  <!-- 亮点 —— 带编号卡片网格 -->
+  <section class="highlights">
+    <h2>一些让人记住的特点</h2>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="num">1</span>
+        <div class="content">
+          <strong>话题跟着比赛走</strong>
+          <p>不会刷到无关内容，每个板块都贴近真实的体育时刻。</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="num">2</span>
+        <div class="content">
+          <strong>界面清爽，没有干扰弹窗</strong>
+          <p>把注意力还给内容本身，而不是被广告或复杂菜单带走。</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="num">3</span>
+        <div class="content">
+          <strong>讨论氛围偏向友善</strong>
+          <p>从留言区能感觉到大家是真的在聊球，而不是互相攻击。</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="num">4</span>
+        <div class="content">
+          <strong>移动端体验流畅</strong>
+          <p>手机浏览器打开直接能用，加载快，卡片布局适合单手。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 使用建议 / 场景 -->
+  <section class="scenario-box">
+    <h2>💡 你可以这样用</h2>
+    <p style="margin-bottom: 0.4rem; color: #2a5d55;">不用刻意安排时间，自然融入日常：</p>
+    <div class="suggestion-grid">
+      <div class="suggestion-chip"><span>🏀 午休刷两屏</span></div>
+      <div class="suggestion-chip"><span>📱 等车时看战报</span></div>
+      <div class="suggestion-chip"><span>🗣️ 赛后找理性讨论</span></div>
+      <div class="suggestion-chip"><span>📊 快速查赛事数据</span></div>
+      <div class="suggestion-chip"><span>🏸 关注小众运动</span></div>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.9rem; color: #1b5e55;">建议把页面添加到手机主屏，体验类似原生应用。</p>
+  </section>
+
+  <!-- 自然嵌入链接的句子 -->
+  <div class="link-sentence">
+    <p>如果你还没想好从哪开始，不妨直接在浏览器里输入 <a href="https://m-qiesports.com">企鹅体育</a>，首页的推荐流和话题标签能帮你快速熟悉节奏。</p>
+  </div>
+
+  <!-- FAQ 摘要（简洁版） -->
+  <section class="faq-mini">
+    <h2>❓ 常见疑问 · 摘要</h2>
+    <div class="faq-item">
+      <div class="q">需要注册才能看内容吗？</div>
+      <div class="a">大部分内容对访客开放，只有参与讨论或收藏才需要简单注册。</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">内容更新快不快？</div>
+      <div class="a">跟着赛事节奏，比赛日更新比较密集，休赛期也有趣味盘点。</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">和那些大型体育App有什么不同？</div>
+      <div class="a">更轻、更社区化，没有臃肿的模块。你可以理解为「体育版的小组讨论+资讯」。 </div>
+    </div>
+  </section>
+
+  <!-- 可信但克制的说明 -->
+  <div style="display: flex; justify-content: center; margin: 1.2rem 0 0.5rem;">
+    <span class="trust-note">✓ 非官方 · 真实用户视角介绍 · 信息仅供参考</span>
+  </div>
+
+  <!-- 底部 -->
+  <footer class="footer-note">
+    <p>关于 <a href="https://m-qiesports.com">企鹅体育</a> 的简要说明 · 内容保持中立</p>
+    <p style="margin-top: 0.3rem; font-size: 0.75rem; opacity: 0.7;">© 页面仅供介绍，与网站无强制关联</p>
+  </footer>
+
+</div>
+</body>
+</html>
